@@ -1,4 +1,4 @@
-# Ligra - SaaS para Gestão de Ligas de Esportes de Raquete
+# Matchpoint - SaaS para Gestão de Ligas de Esportes de Raquete
 
 Plataforma desenvolvida para gerenciar ligas amadoras de esportes de raquete (Padel, Tênis, Beach Tennis, Pickleball). 
 
@@ -12,8 +12,8 @@ Plataforma desenvolvida para gerenciar ligas amadoras de esportes de raquete (Pa
 
 1. **Clone e Instale:**
 \`\`\`bash
-git clone https://github.com/ramonsl/ligra.git
-cd ligra
+git clone https://github.com/ramonsl/matchpoint.git
+cd matchpoint
 npm install
 \`\`\`
 
