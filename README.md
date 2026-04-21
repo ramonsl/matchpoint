@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ligra - SaaS para Gestão de Ligas de Esportes de Raquete
 
-## Getting Started
+Plataforma desenvolvida para gerenciar ligas amadoras de esportes de raquete (Padel, Tênis, Beach Tennis, Pickleball). 
 
-First, run the development server:
+## Tecnologias 🚀
+- Next.js 14 (App Router)
+- React, Tailwind CSS
+- Prisma ORM + PostgreSQL (Neon)
+- NextAuth.js (Auth.js)
 
-```bash
+## Instalação e Execução Local 💻
+
+1. **Clone e Instale:**
+\`\`\`bash
+git clone https://github.com/ramonsl/ligra.git
+cd ligra
+npm install
+\`\`\`
+
+2. **Configuração de Variáveis:**
+Copie o arquivo \`.env.example\` para \`.env\` e preencha as variáveis locais.
+\`\`\`bash
+cp .env.example .env
+\`\`\`
+
+3. **Banco de Dados:**
+Certifique-se de configurar a \`DATABASE_URL\` e execute as migrations do Prisma:
+\`\`\`bash
+npx prisma db push
+# ou npx prisma migrate dev
+\`\`\`
+
+4. **Inicie o servidor:**
+\`\`\`bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+\`\`\`
+O app estará rodando em \`http://localhost:3000\`.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ⚙️ Variáveis de Ambiente e Ambientes Railway (Issue #4)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+O projeto está configurado para possuir dois ambientes na Vercel/Railway:
+- **Test:** branch \`develop\` faz deploy automático
+- **Prod:** branch \`main\` faz deploy automático (com banco dedicado e isolado)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+As variáveis no \`.env\` devem ser populadas nos respectivos painéis do Railway.
 
-## Learn More
+## 🧪 Testes Automatizados (Playwright/Jest)
 
-To learn more about Next.js, take a look at the following resources:
+\`\`\`bash
+npm run test       # Testes unitários
+npm run test:e2e   # Testes E2E (Playwright)
+\`\`\`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+*Para gerar o Admin Master de fundação, utilize o seed:*
+\`\`\`bash
+npx prisma db seed
+\`\`\`
+*(É necessário ter ADMIN_EMAIL e ADMIN_INITIAL_PASSWORD no .env).*
