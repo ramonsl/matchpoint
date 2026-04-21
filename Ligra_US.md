@@ -1,4 +1,5 @@
 # Ligra — User Stories & Requisitos
+
 **Versão:** 1.0 | **Data:** Abril 2025 | **Status:** Em revisão
 
 ---
@@ -18,26 +19,26 @@
 
 ## 1. Requisitos Não Funcionais
 
-| ID | Requisito | Detalhe |
-|----|-----------|---------|
-| RNF-01 | **Frontend** | React + Next.js 14 (App Router) |
-| RNF-02 | **Banco de dados** | PostgreSQL via Neon (serverless) |
-| RNF-03 | **ORM** | Prisma |
-| RNF-04 | **Autenticação** | NextAuth.js com providers: e-mail/senha e Google OAuth |
-| RNF-05 | **Notificações push** | Integração com WhatsApp Business API (ex: Twilio ou Z-API) |
-| RNF-06 | **Hospedagem** | Railway (frontend + API routes do Next.js) |
-| RNF-06a | **Ambientes** | Dois ambientes isolados: `test` e `prod`, cada um com seu próprio serviço no Railway e banco Neon separado |
+| ID      | Requisito                 | Detalhe                                                                                                                                                                                 |
+| ------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| RNF-01  | **Frontend**              | React + Next.js 14 (App Router)                                                                                                                                                         |
+| RNF-02  | **Banco de dados**        | PostgreSQL via Neon (serverless)                                                                                                                                                        |
+| RNF-03  | **ORM**                   | Prisma                                                                                                                                                                                  |
+| RNF-04  | **Autenticação**          | NextAuth.js com providers: e-mail/senha e Google OAuth                                                                                                                                  |
+| RNF-05  | **Notificações push**     | Integração com WhatsApp Business API (ex: Twilio ou Z-API)                                                                                                                              |
+| RNF-06  | **Hospedagem**            | Railway (frontend + API routes do Next.js)                                                                                                                                              |
+| RNF-06a | **Ambientes**             | Dois ambientes isolados: `test` e `prod`, cada um com seu próprio serviço no Railway e banco Neon separado                                                                              |
 | RNF-06b | **Variáveis de ambiente** | Cada ambiente possui seu próprio conjunto de variáveis no Railway (`DATABASE_URL`, `GEOCODING_API_KEY`, `NEXTAUTH_SECRET`, etc.); nenhuma variável de produção é compartilhada com test |
-| RNF-06c | **Deploy** | Branch `main` faz deploy automático em `prod`; branch `develop` faz deploy automático em `test` |
-| RNF-06d | **URLs** | `test`: `test.ligra.app` · `prod`: `ligra.app` (ou domínio equivalente configurado no Railway) |
-| RNF-07 | **Estilização** | Tailwind CSS |
-| RNF-08 | **Tempo de resposta** | Páginas carregam em < 2s em conexão 4G |
-| RNF-09 | **Disponibilidade** | ≥ 99,5% uptime mensal |
-| RNF-10 | **Segurança** | Senhas com bcrypt (salt ≥ 12), HTTPS obrigatório, tokens JWT com expiração de 7 dias |
-| RNF-11 | **Mobile-first** | Layout responsivo; experiência primária em tela de 375px |
-| RNF-12 | **Internacionalização** | Português como idioma padrão; estrutura preparada para i18n |
-| RNF-13 | **Acessibilidade** | WCAG 2.1 nível AA nas páginas públicas |
-| RNF-14 | **Monitoramento** | Logs de erro via Sentry; métricas básicas via Vercel Analytics |
+| RNF-06c | **Deploy**                | Branch `main` faz deploy automático em `prod`; branch `develop` faz deploy automático em `test`                                                                                         |
+| RNF-06d | **URLs**                  | `test`: `test.ligra.app` · `prod`: `ligra.app` (ou domínio equivalente configurado no Railway)                                                                                          |
+| RNF-07  | **Estilização**           | Tailwind CSS                                                                                                                                                                            |
+| RNF-08  | **Tempo de resposta**     | Páginas carregam em < 2s em conexão 4G                                                                                                                                                  |
+| RNF-09  | **Disponibilidade**       | ≥ 99,5% uptime mensal                                                                                                                                                                   |
+| RNF-10  | **Segurança**             | Senhas com bcrypt (salt ≥ 12), HTTPS obrigatório, tokens JWT com expiração de 7 dias                                                                                                    |
+| RNF-11  | **Mobile-first**          | Layout responsivo; experiência primária em tela de 375px                                                                                                                                |
+| RNF-12  | **Internacionalização**   | Português como idioma padrão; estrutura preparada para i18n                                                                                                                             |
+| RNF-13  | **Acessibilidade**        | WCAG 2.1 nível AA nas páginas públicas                                                                                                                                                  |
+| RNF-14  | **Monitoramento**         | Logs de erro via Sentry; métricas básicas via Vercel Analytics                                                                                                                          |
 
 ---
 
@@ -310,6 +311,7 @@ Admin Master (SaaS)
 #### Critérios de aceite
 
 **Dados básicos**
+
 - [ ] Jogador pode editar: nome de exibição, foto de perfil e telefone (para WhatsApp)
 - [ ] Telefone é obrigatório para receber notificações via WhatsApp; campo com validação de formato (aceita formatos BR: `(51) 99999-9999`)
 - [ ] Alteração de e-mail exige confirmação no novo endereço antes de ser aplicada
@@ -318,10 +320,12 @@ Admin Master (SaaS)
 - [ ] Foto de perfil aceita JPG/PNG até 5MB; armazenada em storage externo (Railway Volume ou S3-compatible)
 
 **Localização**
+
 - [ ] Jogador pode informar sua cidade usando o mesmo autocomplete de API definido em US-O-01
 - [ ] Cidade do jogador é usada para sugerir ligas próximas na busca (US-P-01)
 
 **Informações esportivas**
+
 - [ ] Jogador pode selecionar os esportes que pratica (multi-seleção): Padel, Tênis, Beach Tennis, Pickleball, Outro
 - [ ] Para cada esporte selecionado, campos adicionais ficam disponíveis:
   - [ ] **Posição em quadra** (Padel / Beach Tennis): `Esquerda`, `Direita` ou `Ambos`
@@ -332,6 +336,7 @@ Admin Master (SaaS)
 - [ ] Organizador pode filtrar atletas por posição e nível ao visualizar a lista de inscritos na liga
 
 **Visibilidade**
+
 - [ ] Jogador pode definir se seu perfil é público (visível para qualquer usuário logado) ou privado (visível apenas para membros das suas ligas)
 - [ ] Perfil público exibe: nome, foto, esportes, posição, nível e histórico de ligas participadas
 - [ ] Perfil privado exibe apenas: nome e foto
@@ -573,21 +578,21 @@ Admin Master (SaaS)
 
 ## 8. Regras de Negócio Transversais
 
-| ID | Regra |
-|----|-------|
-| RN-01 | Saldo de um jogador em um jogo = games ganhos pela dupla − games perdidos pela dupla |
+| ID    | Regra                                                                                                                                            |
+| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| RN-01 | Saldo de um jogador em um jogo = games ganhos pela dupla − games perdidos pela dupla                                                             |
 | RN-02 | W.O. é aplicado automaticamente ao expirar o prazo da rodada sem resultado registrado; placar: 0–6 (−6 pts para ausente, +6 pts para adversário) |
-| RN-03 | Desempate no ranking: 1º critério = resultado do confronto direto; 2º critério = definido pelo organizador |
-| RN-04 | Resultado só é computado no ranking após confirmação (3 confirmações ou decisão de votação/arbitragem) |
-| RN-05 | Votação de disputa: maioria (3×1 ou 4×0) encerra; empate (2×2) escala ao organizador |
-| RN-06 | Voto não dado em 48h conta como confirmação automática do placar informado |
-| RN-07 | Organização não arbitrada em 72h escala alerta ao Admin Master |
-| RN-08 | Um jogador pode ser organizador de múltiplas ligas simultaneamente |
-| RN-09 | Um organizador pode competir como atleta em sua própria liga |
-| RN-10 | Liga só pode ser iniciada se número de atletas ≥ mínimo configurado |
-| RN-11 | Novas inscrições são bloqueadas após o início da liga |
-| RN-12 | Rodadas são geradas uma única vez ao iniciar a liga; não podem ser regeneradas após início |
+| RN-03 | Desempate no ranking: 1º critério = resultado do confronto direto; 2º critério = definido pelo organizador                                       |
+| RN-04 | Resultado só é computado no ranking após confirmação (3 confirmações ou decisão de votação/arbitragem)                                           |
+| RN-05 | Votação de disputa: maioria (3×1 ou 4×0) encerra; empate (2×2) escala ao organizador                                                             |
+| RN-06 | Voto não dado em 48h conta como confirmação automática do placar informado                                                                       |
+| RN-07 | Organização não arbitrada em 72h escala alerta ao Admin Master                                                                                   |
+| RN-08 | Um jogador pode ser organizador de múltiplas ligas simultaneamente                                                                               |
+| RN-09 | Um organizador pode competir como atleta em sua própria liga                                                                                     |
+| RN-10 | Liga só pode ser iniciada se número de atletas ≥ mínimo configurado                                                                              |
+| RN-11 | Novas inscrições são bloqueadas após o início da liga                                                                                            |
+| RN-12 | Rodadas são geradas uma única vez ao iniciar a liga; não podem ser regeneradas após início                                                       |
 
 ---
 
-*Documento gerado com base nas sessões de alinhamento de produto do Ligra — Abril 2025.*
+_Documento gerado com base nas sessões de alinhamento de produto do Ligra — Abril 2025._
