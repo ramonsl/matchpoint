@@ -1,0 +1,185 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// NextAuth Models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+enum Role {
+  PLAYER
+  ORGANIZER
+  ADMIN
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum LeagueStatus {
+  WAITING
+  IN_PROGRESS
+  ENDED
+}
+
+enum PlayerStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum MatchStatus {
+  TO_PLAY
+  PLAYING
+  FINISHED
+  WO
+  WAITING_CONFIRMATION
+  DISPUTE
+}
+
+enum VoteType {
+  CONFIRM
+  DISPUTE
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  passwordHash  String?
+  image         String?
+  phone         String?
+  gender        Gender?
+  role          Role      @default(PLAYER)
+  suspended     Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+
+  accounts         Account[]
+  sessions         Session[]
+  leagues          League[]       @relation("OrganizedLeagues")
+  leaguePlayers    LeaguePlayer[]
+  votes            Vote[]
+  resultsSubmitted Result[]       @relation("SubmittedResults")
+}
+
+model League {
+  id         String       @id @default(cuid())
+  name       String
+  sport      String
+  gender     Gender
+  minPlayers Int
+  maxPlayers Int
+  status     LeagueStatus @default(WAITING)
+  inviteCode String       @unique
+  city       String?
+  settings   Json?
+
+  organizerId String
+  organizer   User   @relation("OrganizedLeagues", fields: [organizerId], references: [id])
+
+  players   LeaguePlayer[]
+  rounds    Round[]
+  createdAt DateTime       @default(now())
+}
+
+model LeaguePlayer {
+  id       String       @id @default(cuid())
+  leagueId String
+  league   League       @relation(fields: [leagueId], references: [id], onDelete: Cascade)
+  playerId String
+  player   User         @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  status   PlayerStatus @default(PENDING)
+  joinedAt DateTime     @default(now())
+
+  @@unique([leagueId, playerId])
+}
+
+model Round {
+  id       String   @id @default(cuid())
+  leagueId String
+  league   League   @relation(fields: [leagueId], references: [id], onDelete: Cascade)
+  number   Int
+  deadline DateTime
+  status   String   @default("PENDING")
+  matches  Match[]
+}
+
+model Match {
+  id      String @id @default(cuid())
+  roundId String
+  round   Round  @relation(fields: [roundId], references: [id], onDelete: Cascade)
+
+  teamAPlayer1 String
+  teamAPlayer2 String
+  teamBPlayer1 String
+  teamBPlayer2 String
+
+  status MatchStatus @default(TO_PLAY)
+
+  results Result[]
+}
+
+model Result {
+  id            String @id @default(cuid())
+  matchId       String
+  match         Match  @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  submittedById String
+  submittedBy   User   @relation("SubmittedResults", fields: [submittedById], references: [id])
+
+  scoreA Int
+  scoreB Int
+  status String @default("PENDING")
+
+  votes     Vote[]
+  createdAt DateTime @default(now())
+}
+
+model Vote {
+  id        String   @id @default(cuid())
+  resultId  String
+  result    Result   @relation(fields: [resultId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  vote      VoteType
+  createdAt DateTime @default(now())
+
+  @@unique([resultId, userId])
+}
