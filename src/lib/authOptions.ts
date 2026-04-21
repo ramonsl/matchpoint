@@ -5,8 +5,11 @@ import { PrismaAdapter } from '@auth/prisma-adapter';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcrypt';
 
+import { Adapter } from 'next-auth/adapters';
+import { Role } from '@prisma/client';
+
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma) as any,
+  adapter: PrismaAdapter(prisma) as Adapter,
   session: {
     strategy: 'jwt',
     maxAge: 7 * 24 * 60 * 60, // 7 days
@@ -59,14 +62,14 @@ export const authOptions: NextAuthOptions = {
     jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.role = (user as any).role;
+        token.role = (user as unknown as { role: Role }).role;
       }
       return token;
     },
     session({ session, token }) {
       if (session.user && token) {
-        (session.user as any).id = token.id;
-        (session.user as any).role = token.role;
+        (session.user as unknown as { id: string; role: Role }).id = token.id as string;
+        (session.user as unknown as { id: string; role: Role }).role = token.role as Role;
       }
       return session;
     },

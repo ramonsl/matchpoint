@@ -16,7 +16,7 @@ const redis = process.env.UPSTASH_REDIS_REST_URL
         expire: () => ({}),
         exec: async () => [1, 1],
       }),
-    } as any);
+    } as unknown as Redis);
 
 export const rateLimiter = new Ratelimit({
   redis,
