@@ -1,4 +1,4 @@
-# Ligra — User Stories & Requisitos
+# Matchpoint — User Stories & Requisitos
 
 **Versão:** 1.0 | **Data:** Abril 2025 | **Status:** Em revisão
 
@@ -30,7 +30,7 @@
 | RNF-06a | **Ambientes**             | Dois ambientes isolados: `test` e `prod`, cada um com seu próprio serviço no Railway e banco Neon separado                                                                              |
 | RNF-06b | **Variáveis de ambiente** | Cada ambiente possui seu próprio conjunto de variáveis no Railway (`DATABASE_URL`, `GEOCODING_API_KEY`, `NEXTAUTH_SECRET`, etc.); nenhuma variável de produção é compartilhada com test |
 | RNF-06c | **Deploy**                | Branch `main` faz deploy automático em `prod`; branch `develop` faz deploy automático em `test`                                                                                         |
-| RNF-06d | **URLs**                  | `test`: `test.ligra.app` · `prod`: `ligra.app` (ou domínio equivalente configurado no Railway)                                                                                          |
+| RNF-06d | **URLs**                  | `test`: `test.matchpoint.app` · `prod`: `matchpoint.app` (ou domínio equivalente configurado no Railway)                                                                                          |
 | RNF-07  | **Estilização**           | Tailwind CSS                                                                                                                                                                            |
 | RNF-08  | **Tempo de resposta**     | Páginas carregam em < 2s em conexão 4G                                                                                                                                                  |
 | RNF-09  | **Disponibilidade**       | ≥ 99,5% uptime mensal                                                                                                                                                                   |
@@ -67,7 +67,7 @@ Admin Master (SaaS)
 
 ### US-AUTH-01 — Cadastro de novo usuário
 
-**Como** visitante do Ligra,
+**Como** visitante do Matchpoint,
 **quero** criar uma conta com nome, e-mail e senha,
 **para** acessar a plataforma como jogador.
 
@@ -141,14 +141,14 @@ Admin Master (SaaS)
 
 ### US-LP-01 — Apresentação do produto
 
-**Como** visitante que chegou ao Ligra pela primeira vez,
+**Como** visitante que chegou ao Matchpoint pela primeira vez,
 **quero** entender rapidamente o que é o produto e para que serve,
 **para** decidir se vale criar uma conta.
 
 #### Critérios de aceite
 
 - [ ] Página carrega em < 2s em conexão 4G (medido via Lighthouse)
-- [ ] Hero section exibe: nome "Ligra", tagline clara, botão "Criar liga grátis" e botão "Entrar"
+- [ ] Hero section exibe: nome "Matchpoint", tagline clara, botão "Criar liga grátis" e botão "Entrar"
 - [ ] Seção "Como funciona" exibe os 3 passos principais: Criar liga → Convidar atletas → Jogar e acompanhar
 - [ ] Seção de esportes suportados lista: Padel, Tênis, Beach Tennis, Pickleball e outros
 - [ ] Seção de features destaca: geração automática de rodadas, ranking por saldo de games, notificações via WhatsApp
@@ -595,4 +595,4 @@ Admin Master (SaaS)
 
 ---
 
-_Documento gerado com base nas sessões de alinhamento de produto do Ligra — Abril 2025._
+_Documento gerado com base nas sessões de alinhamento de produto do Matchpoint — Abril 2025._
